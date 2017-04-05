@@ -2,160 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Scratchy</title>
+  <title>
+    Scratchy
+  </title>
   <link href="https://fonts.googleapis.com/css?family=Shadows+Into+Light" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="scratch-art.css" media="screen" />
 </head>
 <body>
 
-<ul>
+<ul id="topbar">
 	<!-- Left -->
 	<li id="title">
-    <div> SCRATCHY </div>
+    SCRATCHY
   </li>
 	<!-- Center -->
 	<li id="size-control">
-	    <label for="size">Stroke Size:</label>
-	    <input id="size" type="range" name="size" min="2" max="15" value="5">
-    </li>
-    <!-- Right -->
-    <li id="buttons">
-    	<button id="back">Undo</span></button>
-	    <button id="save">Save</button>
-	    <button id="start-over">Start Over</button>
-	    <button id="forward">Redo</button>
-    </li>
+    <input id="size" type="range" name="size" min="1" max="15" value="5">
+  </li>
+  <!-- Right -->
+  <li id="buttons">
+  	<button id="undo">↺</span></button>
+    <button id="redo">↻</button>
+    <button id="save">Save</button>
+    <button id="clear">Clear</button>
+  </li>
 </ul>
 
 <canvas id="draw"></canvas>  
 
-<script>
-const canvas = document.querySelector("#draw");
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth-50;
-canvas.height = window.innerHeight-85;
-ctx.fillStyle = "#000000";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-// ctx.fill();
-ctx.strokeStyle = "#BADA55";
-// ctx.shadowBlur = 5;
-ctx.shadowColor = "#BADA55"
-ctx.lineJoin = "round";
-ctx.lineCap = "round";
-ctx.lineWidth = 5;
-strokeSize = 10;
-ctx.globalCompositeOperation = "destination-out";
-
-let isDrawing = false;
-let lastX = 0;
-let lastY = 0;
-let hue = 0;
-// let grow = true;
-
-function draw(e){
-	if(!isDrawing) return;
-	hue = (window.innerWidth-e.offsetX)/window.innerWidth*720
-	ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
-	ctx.beginPath();
-	ctx.moveTo(lastX, lastY);
-	ctx.lineTo(e.offsetX, e.offsetY);
-	ctx.lineWidth = getRandomInt(3, 5);
-	console.log(ctx.lineWidth+" "+strokeSize)
-	ctx.stroke();
-	[lastX, lastY] = [e.offsetX, e.offsetY];
-	hue = (hue+1)%360;
-}
-
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mousedown", (e) => {
-	isDrawing = true;
-	[lastX, lastY] = [e.offsetX, e.offsetY];
-});
-canvas.addEventListener("mouseup", () => isDrawing = false);
-canvas.addEventListener("mouseout", () => isDrawing = false);
-
-const size_selector = document.querySelector("input#size");
-
-function changeStrokeSize(){
-  strokeSize = this.value;
-  ctx.lineWidth = strokeSize;
-  // ctx.shadowBlur = this.value/15;
-}
-
-function getRandomInt(min, max) {
- 	console.log("min: "+min+", max: "+max)
-	return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-size_selector.addEventListener("change", changeStrokeSize)
-size_selector.addEventListener("mousemove", changeStrokeSize)
-// http://perfectionkills.com/exploring-canvas-drawing-techniques/
-
-</script>
-
-<style>
-  html, body {
-    margin:0; 
-  }
-  body, button, input {
-  	font-family: 'Shadows Into Light', cursive;
-  	background: #bbb;
-  }
-  ul {
-	list-style-type: none;
-	margin-left: 10px;
-  margin-right: 20px;
-  margin-top: 0;
-
-	padding: 0;
-
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-  }
-  #title{
-  	font-size: 40px;
-  	margin-left: 50px;
-    background-color: yellow;
-  }
-  #size-control{
-
-  }
-  #buttons {
-  	font-size: 100%;
-  	border-radius: 5px;
-
-/*	display: flex;
-	justify-content: space-between;
-	align-items: center;*/
-  }
-  button {
-    background-color: yellow;
-  }
-
-  #draw{
-  	border: 2px yellow;
-  	border-style: none solid solid none;
-    background: silver;
-	background: -webkit-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
-	background: -o-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
-	background: -moz-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
-	background: linear-gradient(to bottom right, red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet); 
-
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-/*  .controls {
-  	padding-top: 1em;
-  	text-align: center;
-  	padding-bottom: 1em;
-    /*margin-bottom: 50px;*/
-  }*/
-  h1{
-  	/*margin-top: auto;*/
-  	text-align: center;
-  }
-</style>
+<script src="scratch-art.js"></script>
 
 </body>
 </html>

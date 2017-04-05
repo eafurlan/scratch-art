@@ -1,0 +1,52 @@
+  :root {
+    --randomRainbow: red;
+  }
+  html, body {
+    margin:0; 
+  }
+  body, button, input {
+  	font-family: 'Shadows Into Light', cursive;
+  	background: #444;
+    color: white;
+  }
+  ul {
+  	list-style-type: none;
+  	margin: 5px;
+  	padding: 0;
+
+  	display: flex;
+  	justify-content: space-between;
+  	align-items: center;
+  }
+  #title{
+  	font-size: 40px;
+  	margin-left: 50px;
+  }
+  #title:hover{
+    color: var(--randomRainbow);
+    transition:.1s;
+  }
+  #size-control{
+  }
+  #buttons {
+    margin-right: 25px;
+  }
+  button {
+    background-color: black;
+    font-size: 16px;
+  }
+  button:hover{
+    color: var(--randomRainbow);
+    transition:.1s;
+  }
+  #draw{
+  	border: 2px outset #bbb; 
+    background: silver; /*default background if nothing else works*/
+  	background: -webkit-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
+  	background: -o-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
+  	background: -moz-linear-gradient(top left,red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet);
+  	background: linear-gradient(to bottom right, red,orange,yellow,green,blue,indigo,violet,red,orange,yellow,green,blue,indigo,violet); 
+
+    margin: auto;
+    display: block;
+  }
