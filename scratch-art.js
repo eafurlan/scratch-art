@@ -60,7 +60,8 @@ function redraw() {
 
 function changeStrokeSize(){
   strokeSize = this.value;
-  console.log(strokeSize)
+  console.log(strokeSize);
+  ctx.lineWidth = strokeSize;
   // ctx.shadowBlur = this.value/15;
 }
 
