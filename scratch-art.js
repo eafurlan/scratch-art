@@ -1,13 +1,32 @@
 //Script for index.html
 
-//Canvas Defaults
-const canvas = document.querySelector("#draw");
+//my_Canvas Defaults
+const my_canvas = document.querySelector("#draw");
 
-const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth-50;
-canvas.height = window.innerHeight-100;
-ctx.fillStyle = "black";
-ctx.fillRect(0, 0, canvas.width, canvas.height);
+const ctx = my_canvas.getContext("2d");
+my_canvas.width = window.innerWidth-50;
+my_canvas.height = window.innerHeight-100;
+
+//create gradient
+var grd = ctx.createLinearGradient(0,0,my_canvas.width,my_canvas.height);
+grd.addColorStop(0,"red");
+grd.addColorStop(.1,"orange");
+grd.addColorStop(.2,"yellow");
+grd.addColorStop(.3,"green");
+grd.addColorStop(.4,"blue");
+grd.addColorStop(.5,"purple");
+grd.addColorStop(.6,"red");
+grd.addColorStop(.7,"orange");
+grd.addColorStop(.8,"yellow");
+grd.addColorStop(.9,"green");
+grd.addColorStop(1,"blue");
+// grd.addColorStop(1,"purple");
+// grd.addColorStop(12,);
+// grd.addColorStop(13,);
+// grd.addColorStop(14,);
+
+ctx.fillStyle = grd;
+ctx.fillRect(0, 0, my_canvas.width, my_canvas.height);
 // ctx.fill();
 ctx.strokeStyle = "#BADA55";
 ctx.shadowBlur = 1;
@@ -27,7 +46,7 @@ function draw(e) {
 	if(!isDrawing) return;
 	oldLines.length = 0;
 	points.push({x:e.offsetX, y:e.offsetY});
-	if(points.length%3===0){
+	if(points.length%10===0){
 		ctx.lineWidth = getVariableWidth(Number(strokeSize)-1, Number(strokeSize)+1);
 	}
 	console.log("Line width: "+ctx.lineWidth)
@@ -39,7 +58,24 @@ function draw(e) {
 }
 
 function getVariableWidth(strokeSize){
-	return Math.random() * strokeSize/5 * 2 + strokeSize - strokeSize/5;
+	// var x = Math.ceil(Math.random()*3)*(strokeSize/10) * strokeSize - strokeSize/10;
+	// switch ( Math.ceil(Math.random()*3) ) {
+	// 	case 1:
+	// 		console.log("case 1")
+	// 		return strokeSize - 1;
+	// 	case 2:
+	// 		console.log("case 2")
+	// 		return strokeSize;
+	// 	case 3:
+	// 		console.log("case 3")
+	// 		return strokeSize + 1;
+	// 	default:
+	// 		return strokeSize;
+	// }
+	var x = strokeSize + Math.floor(Math.random()*3)-1;
+	console.log(x)
+	return x;
+	// return Math.random() * strokeSize/5 * 2 + strokeSize - strokeSize/5;
 }
 
 function drawLine (line) {
@@ -52,7 +88,7 @@ function drawLine (line) {
 }
 
 function redraw() {
-	clearCanvas();
+	clearmy_Canvas();
 	for (line in lines){
 		drawLine(line);
 	}
@@ -65,10 +101,10 @@ function changeStrokeSize(){
   // ctx.shadowBlur = this.value/15;
 }
 
-function clearCanvas() {
-	ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+function clearmy_Canvas() {
+	ctx.clearRect(0, 0, ctx.my_canvas.width, ctx.my_canvas.height);
 	// ctx.clear();
-	// ctx.fillRect(0, 0, canvas.width, canvas.height);
+	// ctx.fillRect(0, 0, my_canvas.width, my_canvas.height);
 	// ctx.fill();
 }
 
@@ -90,8 +126,8 @@ function pushLine () {
 }
 
 function savePicture () {
-	var image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
-	window.location.href=image; 
+	var image = my_canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+	window.location.href=image;
 }
 
 function setRandomRainbow(){
@@ -100,13 +136,13 @@ function setRandomRainbow(){
 }
 
 //Event Listeners
-canvas.addEventListener("mousemove", draw);
-canvas.addEventListener("mousedown", (e) => {
+my_canvas.addEventListener("mousemove", draw);
+my_canvas.addEventListener("mousedown", (e) => {
 	isDrawing = true;
 	points.push({x:e.offsetX, y:e.offsetY});
 });
-canvas.addEventListener("mouseup", stopDrawing);
-canvas.addEventListener("mouseout", stopDrawing);
+my_canvas.addEventListener("mouseup", stopDrawing);
+my_canvas.addEventListener("mouseout", stopDrawing);
 
 const size_selector = document.querySelector("input#size");
 size_selector.addEventListener("change", changeStrokeSize);
@@ -124,7 +160,7 @@ const save_button = document.querySelector("button#save");
 save_button.addEventListener("mousedown", savePicture);
 
 const clear_button = document.querySelector("button#clear");
-clear_button.addEventListener("mousedown", clearCanvas);
+clear_button.addEventListener("mousedown", clearmy_Canvas);
 
 const title = document.querySelector("#title");
 title.addEventListener("mouseover", setRandomRainbow);
